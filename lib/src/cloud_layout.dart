@@ -19,6 +19,9 @@ class CloudLayout {
     'folders',
     'highlights',
     'notes',
+    'custom_plans',
+    'plan_progress',
+    'reading_days',
     'meta',
   ];
 

@@ -1,6 +1,6 @@
 name: blessed_account
 description: Shared sign-in and account management for The Blessed Bible and Blessed Arcade.
-version: 0.3.0
+version: 0.3.1
 publish_to: 'none'
 repository: https://github.com/wakilibaraka/blessed-account
 

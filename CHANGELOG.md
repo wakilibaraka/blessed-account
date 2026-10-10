@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- `CloudLayout.bibleCollections`: `custom_plans`, `plan_progress`,
+  `reading_days` (account deletion covers them).
+
 ## 0.3.0
 
 - Sync engine: `SyncEngine`, `SyncCollection`, `SyncStore`, `SyncLedger`,
