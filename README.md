@@ -53,6 +53,20 @@ ProviderScope(overrides: [
 ], child: ...);
 ```
 
+## Sync
+
+Implement `SyncCollection` for each kind of data (id → JSON-safe fields), and `SyncStore` over your local key-value storage, then:
+
+```dart
+final engine = SyncEngine(
+  FirestoreSyncRepository(FirebaseFirestore.instance), store,
+  deviceId: myDeviceId);
+await engine.recordLocalChanges(uid, bookmarks); // on every local change
+await engine.sync(uid, [bookmarks, highlights]); // on sign-in, start, resume, "Sync now"
+```
+
+Each item is one document, `users/{uid}/{collection}/{id}`: `{id, data, updatedAt, deleted, device, syncedAt}`. The newer change wins; deletions are tombstones (kept 90 days on the device). Add the collection to `CloudLayout` and to the Firestore rules first.
+
 ## Cloud layout
 
 `users/{uid}` holds the shared profile. Each app's data lives in subcollections listed in `CloudLayout`. **Add a collection there before an app writes to it**, so account deletion from either app removes it. Documents in those subcollections must not have subcollections of their own (the client SDK can't delete recursively).

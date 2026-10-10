@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Sync engine: `SyncEngine`, `SyncCollection`, `SyncStore`, `SyncLedger`,
+  `FirestoreSyncRepository`. Per-item last-writer-wins with tombstones,
+  incremental pulls by server time, uploads queued by Firestore offline.
+  The first sync on a device never overwrites the account's items.
+
 ## 0.2.0
 
 - `accountFirestoreProvider`: the Firestore instance is now a provider, so

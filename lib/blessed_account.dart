@@ -9,3 +9,7 @@ export 'src/firebase_auth_gateway.dart' show FirebaseAuthGateway;
 export 'src/providers.dart';
 export 'src/shared_profile.dart';
 export 'src/sign_in_result.dart';
+export 'src/sync/firestore_sync_repository.dart';
+export 'src/sync/sync_engine.dart';
+export 'src/sync/sync_ledger.dart';
+export 'src/sync/sync_record.dart';
