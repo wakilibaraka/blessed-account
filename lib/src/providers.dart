@@ -10,8 +10,17 @@ import 'shared_profile.dart';
 final authGatewayProvider =
     Provider<AuthGateway>((ref) => FirebaseAuthGateway());
 
-final accountServiceProvider = Provider<AccountService>((ref) =>
-    AccountService(ref.watch(authGatewayProvider), FirebaseFirestore.instance));
+/// The Firestore instance holding `users/{uid}`. Override in tests with
+/// `FakeFirebaseFirestore`.
+final accountFirestoreProvider =
+    Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
+
+final accountServiceProvider = Provider<AccountService>((ref) => AccountService(
+    ref.watch(authGatewayProvider), ref.watch(accountFirestoreProvider)));
+
+/// Whether to offer Sign in with Apple (iOS/macOS only).
+final appleSignInAvailableProvider = Provider<bool>(
+    (ref) => ref.watch(authGatewayProvider).isAppleSignInAvailable);
 
 /// The signed-in user, or null when signed out.
 final accountUserProvider = StreamProvider<AccountUser?>(

@@ -1,54 +1,17 @@
 import 'package:blessed_account/blessed_account.dart';
+import 'package:blessed_account/testing.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class FakeGateway implements AuthGateway {
-  AccountUser? user;
-  Exception? signInError;
-  Exception? reauthError;
-  final calls = <String>[];
-
-  @override
-  Stream<AccountUser?> authStateChanges() => Stream.value(user);
-  @override
-  AccountUser? get currentUser => user;
-  @override
-  bool get isAppleSignInAvailable => false;
-
-  Future<void> _signIn(String name) async {
-    calls.add(name);
-    if (signInError != null) throw signInError!;
-    user = const AccountUser(uid: 'u1', displayName: ' Ruth ');
-  }
-
-  @override
-  Future<void> signInWithGoogle() => _signIn('google');
-  @override
-  Future<void> signInWithApple() => _signIn('apple');
-  @override
-  Future<void> reauthenticate() async {
-    calls.add('reauth');
-    if (reauthError != null) throw reauthError!;
-  }
-
-  @override
-  Future<void> signOut() async {
-    calls.add('signOut');
-    user = null;
-  }
-
-  @override
-  Future<void> deleteCurrentUser() async => calls.add('deleteUser');
-}
-
 void main() {
   late FakeFirebaseFirestore db;
-  late FakeGateway gateway;
+  late FakeAuthGateway gateway;
   late AccountService service;
 
   setUp(() {
     db = FakeFirebaseFirestore();
-    gateway = FakeGateway();
+    gateway = FakeAuthGateway(
+        nextUser: const AccountUser(uid: 'u1', displayName: ' Ruth '));
     service = AccountService(gateway, db);
   });
 

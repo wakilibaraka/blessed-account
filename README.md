@@ -40,7 +40,18 @@ ref.watch(sharedProfileProvider); // SharedProfile? (name + avatar)
 await account.deleteAccount(clearLocalData: myApp.clearLocalData);
 ```
 
-Show "Sign in with Apple" only when `account.isAppleSignInAvailable`.
+Show "Sign in with Apple" only when `ref.watch(appleSignInAvailableProvider)` is true.
+
+In widget tests, override the gateway and Firestore:
+
+```dart
+import 'package:blessed_account/testing.dart';
+
+ProviderScope(overrides: [
+  authGatewayProvider.overrideWithValue(FakeAuthGateway()),
+  accountFirestoreProvider.overrideWithValue(FakeFirebaseFirestore()),
+], child: ...);
+```
 
 ## Cloud layout
 
