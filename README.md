@@ -4,14 +4,14 @@ Shared sign-in and account management for **The Blessed Bible** and **Blessed Ar
 
 ## Use it
 
-Pin a tag in the app's `pubspec.yaml` (upgrade deliberately by bumping the tag):
+Pin a release in the app's `pubspec.yaml`, as a tag or a commit SHA (upgrade deliberately by bumping it):
 
 ```yaml
 dependencies:
   blessed_account:
     git:
       url: https://github.com/wakilibaraka/blessed-account
-      ref: v0.1.0
+      ref: v0.1.0 # or a commit SHA, e.g. 1f7b8460fe9c038f5bf08d21be2637cc11cfb8af
 ```
 
 At startup, after `Firebase.initializeApp`:
@@ -57,4 +57,4 @@ flutter pub get
 dart format lib test && flutter analyze && flutter test
 ```
 
-Release: update `version` in `pubspec.yaml` and `CHANGELOG.md`, merge to `main`, tag `vX.Y.Z`, then bump the `ref:` in each app.
+Release: update `version` in `pubspec.yaml` and `CHANGELOG.md`, merge to `main`, create tag `vX.Y.Z` (GitHub → Releases → Draft a new release), then bump the `ref:` in each app.
